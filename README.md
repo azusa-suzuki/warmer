@@ -31,7 +31,7 @@
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
-- 仮想環境：AWS(Cloud9)
+- IDE : Cloud9
 
 ## ドメイン
 - お名前.com　https://www.onamae.com/
