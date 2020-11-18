@@ -22,11 +22,11 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV['warmer'] %>
+  database: <%= ENV['DB_DATABASE'] %>
   adapter: mysql2
   encoding: utf8mb4
   charset: utf8mb4
   collation: utf8mb4_general_ci
-  host: <%= ENV['rds-mysql-server.ck54wzplzxns.ap-northeast-1.rds.amazonaws.com'] %>
-  username: <%= ENV['azusa-suzuki'] %>
-  password: <%= ENV['otoko727'] %>
+  host: <%= ENV['DB_HOST'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
