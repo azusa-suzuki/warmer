@@ -10,7 +10,74 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_111441) do
+ActiveRecord::Schema.define(version: 2020_11_24_090752) do
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "invite_comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "invite_id"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "invites", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "image_id"
+    t.string "title"
+    t.text "content"
+    t.integer "sex", default: 0, null: false
+    t.integer "age", default: 0, null: false
+    t.integer "type", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "marks", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "invite_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "visitor_id", null: false
+    t.integer "visited_id", null: false
+    t.integer "invite_id"
+    t.integer "invite_comment_id"
+    t.integer "post_id"
+    t.integer "post_comment_id"
+    t.string "action", default: "", null: false
+    t.boolean "checked", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "post_comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_id"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "image_id"
+    t.string "title"
+    t.text "content"
+    t.integer "sex", default: 0, null: false
+    t.integer "age", default: 0, null: false
+    t.integer "type", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

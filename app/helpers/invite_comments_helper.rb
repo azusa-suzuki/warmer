@@ -1,0 +1,2 @@
+module InviteCommentsHelper
+end

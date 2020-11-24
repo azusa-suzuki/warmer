@@ -1,2 +1,18 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<div class="top-image">
+	<span class="image-text">
+		Warmerへようこそ！<br>
+		当サイトへ初めてお越しになられた方は<br>
+		<%= link_to "「初めての方はこちら」", "/homes/about" %>をご覧ください
+	</span>
+
+</div>
+
+<hr>
+
+<div class="columns">
+	<!-- 新着募集一覧 -->
+	<div class="column">
+		<h3 class="subtitle is-2"><%= link_to "新着募集情報", invites_path %></h3>
+		<!--%= render 'invites/index', invites: @invites %-->
+	</div>
+</div>
