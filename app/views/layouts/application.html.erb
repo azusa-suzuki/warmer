@@ -2,6 +2,10 @@
 <html>
   <head>
     <title>Warmer</title>
+    <!-- フォントオーサム導入 -->
+    <script src="https://kit.fontawesome.com/3f94a5995c.js" crossorigin="anonymous"></script>
+    <!-- BULMA導入 -->
+    <link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/minty/bulmaswatch.min.css">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,11 +15,70 @@
 
   <body>
 
-    <div class="body">
+    <!-- ヘッダーここから -->
+  <header>
+    <nav class="navbar has-background-primary" role="navigation" aria-label="main navigation">
       <div class="container">
-        <%= yield %>
+        <div class="navbar-start">
+          <!--%= link_to(image_tag("logo1.png"), root_path) %-->
+        </div>
+        <!-- ログイン時 -->
+        <% if user_signed_in? %>
+        <div class="navbar-center navbar-item">
+          <span class="has-text-white"><%= current_user.handle_name %> さんでログイン中</span>
+        </div>
+        <div class="navbar-end navbar-item has-icons-left">
+          <!-- 通知がある時はマークが出現 -->
+          <% if unchecked_notifications.any? %>
+            <i class="fas fa-exclamation" style="color: yellow;"></i>
+          <% end %>
+          <%= link_to ' 通知', notifications_path, class: 'nav-link fas fa-bell' %>
+          <%= link_to ' マイページ', user_path(current_user.id), class: 'nav-link fas fa-user' %>
+          <%= link_to ' 募集一覧', invites_path, class: 'nav-link fas fa-cat' %>
+          <%= link_to ' 投稿一覧', posts_path, class: 'nav-link fas fa-paw' %>
+          <%= link_to ' ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link fas fa-sign-out-alt' %>
+        </div>
+        <!-- ログアウト時 -->
+        <% else %>
+        <div class="navbar-end navbar-item has-icons-left">
+          <%= link_to ' 初めての方はこちら', homes_about_path, class: 'nav-link fas fa-question-circle' %>
+          <%= link_to ' 募集一覧', invites_path, class: 'nav-link fas fa-cat' %>
+          <%= link_to ' 投稿一覧', posts_path, class: 'nav-link fas fa-paw' %>
+          <%= link_to ' ログイン', new_user_session_path, class: 'nav-link fas fa-sign-in-alt' %>
+        </div>
+        <% end %>
       </div>
+    </nav>
+  </header>
+  <!-- フラッシュメッセージ -->
+  <div id="flash_messages">
+    <% if flash.each do |key, message| %>
+    <div class="notification is-<%= key %>">
+      <%= message %>
     </div>
+    <% end %>
+    <% end %>
+  </div>
+  <!-- ヘッダーここまで -->
 
+  <!-- メインここから -->
+  <section class="section">
+    <div class="container">
+      <!-- 各ページの内容 -->
+      <%= yield %>
+    </div>
+  </section>
+  <!-- メインここまで -->
+
+  <!-- フッターここから -->
+  <footer class="footer has-background-primary">
+    <!-- コピーライト -->
+    <p class="footer-text has-text-white has-text-centered">© 2020 azusa_suzuki</p>
+    <!-- GitHubリンク -->
+    <div class="has-icons-left has-text-centered">
+      <%= link_to 'GitHub', 'https://github.com/Haruka-W/manekineko', class: 'fab fa-github' %>
+    </div>
+  </footer>
+  <!-- フッターここまで -->
   </body>
 </html>

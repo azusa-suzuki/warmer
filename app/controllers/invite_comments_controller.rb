@@ -1,0 +1,2 @@
+class InviteCommentsController < ApplicationController
+end
