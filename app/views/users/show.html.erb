@@ -1,0 +1,49 @@
+<h1 class="title is-1 has-text-primary"><%= @user.handle_name %>  さんのページ</h1>
+
+<div class="columns">
+  <!-- 会員情報表示欄 -->
+ 	<div class="column is-one-quarter ">
+	<div class="box">
+	  <p class="subtitle is-4">会員情報</p>
+	  	<span class="subtitle is-6">ハンドルネーム</span>
+	  	<p><%= @user.handle_name %></p>
+	  	<span class="subtitle is-6">自己紹介文</span>
+		<p><%= @user.profile %></p>
+		<span class="subtitle is-6">住所</span>
+		<p><%= @user.prefecture %></p>
+		<!-- 以下、ログインしている会員しか表示しない情報 -->
+		<% if user_signed_in? && @user.id == current_user.id %>
+		  <hr>
+		  <span class="subtitle is-6">氏名</span>
+		  <p><%= @user.name %></p>
+		  <span class="subtitle is-6">メールアドレス</span>
+		  <p><%= @user.email %></p>
+		  <br>
+		  <p><%= link_to "登録情報変更", edit_user_path(@user), class: "button is-success" %></p>
+		<% end %>
+	</div>
+ 	</div>
+
+	<div class="column is-three-quarters ">
+	  <!-- 募集一覧 -->
+		<p class="subtitle is-3">
+			募集掲載中
+
+			<% if user_signed_in? && @user.id == current_user.id %>
+			  <%= link_to "募集を出す", new_invite_path, class: "button is-info" %>
+			<% end %>
+		</p>
+		<%= render 'invites/index', invites: @invites %>
+		<%= paginate @invites %>
+		<hr>
+	  <!-- 投稿一覧 -->
+		<p class="subtitle is-3">
+			投稿
+			<% if user_signed_in? && @user.id == current_user.id %>
+			  <%= link_to "投稿する", new_post_path, class: "button is-info" %>
+			<% end %>
+		</p>
+		<%= render 'posts/index', posts: @posts %>
+		<%= paginate @posts %>
+	</div>
+</div>
