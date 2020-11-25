@@ -1,56 +1,61 @@
-<span class="devise-header">　新規会員登録　</span>
-<div class="row form-contens">
+<h1 class="subtitle is-1">新規会員登録ページ</h1>
 
+<div class="box">
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-   <div class="form-group form-group-sm col-xs-11">
-    <%= f.label "名前", class: "col-xs-3 control-label" %>
-    <%= f.text_field :name, autofocus: true, class: "col-xs-3 form-control-static" %>
-  </div>
-  <div class="form-group form-group-sm col-xs-11">
-    <%= f.label "フリガナ", class: "col-xs-3 control-label" %>
-    <%= f.text_field :name_kana, autofocus: true, class: "col-xs-3 form-control-static" %>
-  </div>
+  <p class="has-text-success">公開される情報です。</p>
 
-  <div class="form-group form-group-sm col-xs-11">
-    <%= f.label "メールアドレス", class: "col-xs-4 control-label" %>
-    <%= f.text_field :email, autofocus: true, autocomplete: "email", class: "col-xs-3 form-control-static" %>
+  <div class="field">
+    <p class="control has-icons-left">
+      <%= f.text_field :handle_name, autofocus: true, class: "input has-icons-left", placeholder: "ハンドルネーム（例：なとり）", autocomplete: "handle_name" %>
+      <span class="icon is-small is-left"> <i class="fas fa-user-circle"></i> </span>
+    </p>
   </div>
 
-  <div class="form-group form-group-sm col-xs-11">
-    <%= f.label "郵便番号（ハイフンなし）", class: "col-xs-4 control-label" %>
-    <%= f.text_field :postal_code, autofocus: true, class: "col-xs-3 form-control-static" %>
+  <div class="field">
+    <p class="control">
+      <%= f.label "住所（都道府県を選択してください）" %>
+      <div class="select">
+      <%= f.select :prefecture, User.prefectures.keys, {} %>
+      </div>
+    </p>
   </div>
 
-  <div class="form-group form-group-sm col-xs-11">
-    <%= f.label "住所", class: "col-xs-4 control-label" %>
-    <%= f.text_field :address, class: "col-xs-7 form-control-static" %>
+  <hr>
+
+  <p class="has-text-success">以下の情報は他の会員には公開されません。</p>
+
+  <div class="field">
+    <p class="control has-icons-left">
+      <%= f.text_field :name, autofocus: true, class: "input has-icons-left", placeholder: "氏名（例：千葉 太郎）", autocomplete: "name" %>
+      <span class="icon is-small is-left"> <i class="fas fa-user"></i></span>
+    </p>
   </div>
 
-  <div class="form-group form-group-sm col-xs-11">
-    <%= f.label "電話番号（ハイフンなし）", class: "col-xs-4 control-label" %>
-    <%= f.text_field :phone, autofocus: true, class: "col-xs-3 form-control-static" %>
+  <div class="field">
+    <p class="control has-icons-left">
+      <%= f.email_field :email, autofocus: true, class: "input has-icons-left", placeholder: "メールアドレス（例：neko@test.co.jp）", autocomplete: "email" %>
+      <span class="icon is-small is-left"> <i class="fas fa-envelope"></i> </span>
+    </p>
   </div>
 
-  <div class="form-group form-group-sm col-xs-11">
-    <%= f.label "パスワード(6文字以上)", class: "col-xs-4 control-label" %>
-    <%= f.password_field :password, autocomplete: "new-password", class: "col-xs-3 form-control-static" %>
+  <div class="field">
+    <p class="control has-icons-left">
+      <%= f.password_field :password, class: "input has-icons-left", placeholder: "パスワード（6文字以上）", autocomplete: "new-password" %>
+      <span class="icon is-small is-left"> <i class="fas fa-lock"></i> </span>
+    </p>
   </div>
 
-  <div class="form-group form-group-sm col-xs-11">
-    <%= f.label "パスワード(確認用)", class: "col-xs-4 control-label" %>
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "col-xs-3 form-control-static" %>
+  <div class="field">
+    <p class="control has-icons-left">
+      <%= f.password_field :password_confirmation, class: "input has-icons-left", placeholder: "パスワード（確認のため再度ご入力ください）", autocomplete: "new-password" %>
+      <span class="icon is-small is-left"> <i class="fas fa-lock"></i> </span>
+    </p>
   </div>
 
-    <div class="actions">
-      <%= f.submit "新規登録",  class: "btn btn-success col-xs-2 col-xs-offset-5" %>
-    </div>
-
-  <% end %>
-</div>
-
-<div class="row">
-  <span class="devise-header">　既に登録済の方　</span>
-  <p class="col-xs-offset-1"><br><%= link_to "こちら", new_session_path(resource_name) %>からログインしてください</p>
+  <div class="actions">
+    <%= f.submit "新規会員登録", class: "button is-success" %>
+  </div>
+<% end %>
 </div>
