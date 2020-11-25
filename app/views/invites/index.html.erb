@@ -1,0 +1,9 @@
+<h1 class="title is-1 has-text-primary">募集一覧ページ</h1>
+
+<!-- 検索フォーム -->
+<%= render 'invites/search_form', q: @q %>
+
+<!-- 募集一覧or検索結果表示 -->
+<%= render 'invites/index', invites: @invites %>
+
+<%= paginate @invites, class: "paginate" %>

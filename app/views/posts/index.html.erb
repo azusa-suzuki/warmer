@@ -1,0 +1,9 @@
+<h1 class="title is-1 has-text-primary">投稿一覧ページ</h1>
+
+<!-- 検索フォーム -->
+<%= render 'posts/search_form', q: @q %>
+
+<!-- 投稿一覧or検索結果表示 -->
+<%= render 'posts/index', posts: @posts %>
+
+<%= paginate @posts, class: "paginate" %>

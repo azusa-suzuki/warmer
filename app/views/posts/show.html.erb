@@ -1,0 +1,69 @@
+<h1 class="title is-1 has-text-primary">投稿詳細ページ</h1>
+
+<div class="tile is-ancestor">
+	<div class="tile is-parent">
+		<!-- 画像表示 -->
+		<div class="tile is-child box">
+			<%= attachment_image_tag @post, :image, :fill, 700, 450, fallback: "no_image.jpg" %>
+			<hr>
+			<!-- ログイン時のみいいねボタン表示 -->
+			<% if user_signed_in? %>
+			<div id="post-<%= @post.id %>">
+				<%= render partial: "posts/favorite", locals: { post: @post } %>
+			</div>
+			<% end %>
+			<!-- 投稿情報 -->
+			<span class="subtitle is-6">投稿タイトル</span>
+			<p><%= @post.title %></p>
+			<span class="subtitle is-6">内容</span>
+			<p><%= @post.content %></p>
+			<span class="subtitle is-6">猫情報</span>
+			<p><%= @post.sex %> ／ <%= @post.age %> ／ <%= @post.type %></p>
+			<span class="subtitle is-6">投稿日</span>
+			<p><%= @post.created_at.strftime('%Y/%m/%d') %></p>
+			<!-- ログインしている会員の場合のみ編集と削除ボタンを表示 -->
+			<% if @post.user == current_user %>
+			<hr>
+			<%= link_to "内容を変更する", edit_post_path(@post), class: "button is-success" %>
+			<%= link_to "この投稿を削除する", post_path(@post), class: "button is-danger", method: :delete, data:{confirm: "本当に消しますか？"} %>
+			<% end %>
+		</div>
+	</div>
+	<div class="tile is-parent">
+		<div class="tile is-child">
+			<!-- 投稿者情報ここから -->
+			<h4 class="subtitle is-3">投稿者情報</h4>
+			<span class="subtitle is-6">ハンドルネーム</span>
+			<p><%= link_to @post.user.handle_name, user_path(@post.user.id) %></p>
+			<span class="subtitle is-6">自己紹介文</span>
+			<p><%= @post.user.profile %></p>
+			<span class="subtitle is-6">住所</span>
+			<p><%= @post.user.prefecture %></p>
+			<!-- 投稿者情報ここまで -->
+			<hr>
+			<!-- コメント欄ここから -->
+			<h4 class="subtitle is-3">コメント欄</h4>
+			<div id="comment_<%= @post.id %>">
+				<%= render 'posts/comment', post_comments: @post.post_comments %>
+			</div>
+			<!-- ログイン時はコメント入力フォーム表示 -->
+			<% if user_signed_in? %>
+			<div class="comment_form">
+				<%= form_with(model: [@post, @post_comment], remote: true) do |f| %>
+				<%= f.text_area :comment, class: "textarea", placeholder: "この投稿への感想などはこちらへどうぞ！" %>
+				<%= f.submit "コメントを送信する", class: "button is-info is-pulled-right" %>
+				<% end %>
+			</div>
+			<!-- 未ログイン時はメッセージを表示 -->
+			<% else %>
+			<div class="box">
+				<p>
+					コメントの投稿は会員のみが利用できます。<br>
+					新規会員登録は<%= link_to "こちら", "/users/sign_up" %>から。
+				</p>
+			</div>
+			<% end %>
+			<!-- コメント欄ここまで -->
+		</div>
+	</div>
+</div>

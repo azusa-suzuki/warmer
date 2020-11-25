@@ -1,0 +1,4 @@
+$("#comment_<%= @post.id %>").html("<%= j(render 'posts/comment', post_comments: @post.post_comments) %>");
+<% flash.each do |key, message| %>
+$("#flash_messages").html("<div class='notification is-<%= key %>'><%= message %></div>");
+<% end %>

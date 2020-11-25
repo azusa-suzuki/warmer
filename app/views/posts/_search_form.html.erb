@@ -1,0 +1,48 @@
+<div class="box">
+	<%= search_form_for q, url:posts_path do |f| %>
+
+	<div class="field is-grouped">
+		<%= f.label "性別　", class: "subtitle is-6" %>
+		<p class="control">
+			<%= f.radio_button :sex_eq, '', {:checked => true}%>
+			<%= f.label "指定しない" %>
+			<%= f.radio_button :sex_eq, 0 %>
+			<%= f.label :sex_, "未選択", {value: :未選択} %>
+			<%= f.radio_button :sex_eq, 1 %>
+			<%= f.label :sex_, "オス", {value: :オス} %>
+			<%= f.radio_button :sex_eq, 2 %>
+			<%= f.label :sex, "メス", {value: :メス} %>
+		</p>
+	</div>
+
+	<div class="field is-grouped">
+		<%= f.label "年齢　", class: "subtitle is-6" %>
+		<p class="control">
+			<%= f.radio_button :age_eq, '', {:checked => true}%>
+			<%= f.label "指定しない" %>
+			<%= f.radio_button :age_eq, 0 %>
+			<%= f.label :age, "未選択", {value: :未選択} %>
+			<%= f.radio_button :age_eq, 1 %>
+			<%= f.label :age, "子猫", {value: :子猫} %>
+			<%= f.radio_button :age_eq, 2 %>
+			<%= f.label :age, "成猫", {value: :成猫} %>
+			<%= f.radio_button :age_eq, 3 %>
+			<%= f.label :age, "老猫", {value: :老猫} %>
+		</p>
+	</div>
+
+	<div class="field is-grouped">
+		<%= f.label "種類", class: "subtitle is-6" %>
+		<p class="control">
+			<div class="select">
+				<%= f.select :type_eq, Post.types, :include_blank => '指定しない' %>
+			</div>
+		</p>
+	</div>
+
+	<div class="actions">
+		<%= f.submit "検索", class: "button is-info" %>
+	</div>
+
+	<% end %>
+</div>

@@ -1,0 +1,12 @@
+<!-- コメントの表示 -->
+<% invite_comments.each do |invite_comment| %>
+	<div class="comment">
+		<div><%= invite_comment.comment %></div>
+		<span class="is-size-7"><%= link_to invite_comment.user.handle_name, user_path(invite_comment.user.id) %></span>
+		<span class="is-size-7"><%= invite_comment.created_at.strftime('%Y/%m/%d') %></span>
+		<!-- コメントを投稿したユーザーのみ削除ボタンが表示される -->
+		<% if invite_comment.user == current_user %>
+			<%= link_to "", invite_invite_comments_path(invite_comment), class: "delete is-small", method: :delete, remote: true, data:{confirm: "コメントを削除しますか？"} %>
+		<% end %>
+	</div>
+<% end %>

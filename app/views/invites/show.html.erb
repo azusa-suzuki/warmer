@@ -1,0 +1,80 @@
+<h1 class="title is-1 has-text-primary">募集詳細ページ</h1>
+
+<div class="tile is-ancestor">
+	<div class="tile is-parent">
+		<!-- 画像表示 -->
+		<div class="tile is-child box">
+			<%= attachment_image_tag @invite, :image, :fill, 700, 450, fallback: "no_image.jpg" %>
+			<hr>
+			<!-- 動画が登録されてなければ文章を表示 -->
+			<% if @invite.video.blank? %>
+ 				<p>動画はありません</p>
+ 			<!-- 動画が登録されていたら再生画面を表示 -->
+			<% else %>
+				<video controls name="media">
+				  <source src=<%= @invite.video_url %> >
+				</video>
+				<%#= video_tag @invite.video_url, controls: true, autobuffer: true %>
+			<% end %>
+			<hr>
+			<!-- ログイン時のみ気になるボタン表示 -->
+			<% if user_signed_in? %>
+			<div id="invite-<%= @invite.id %>">
+				<%= render partial: "invites/mark", locals: { invite: @invite } %>
+			</div>
+			<% end %>
+			<!-- 募集情報 -->
+			<span class="subtitle is-6">募集タイトル</span>
+			<p><%= @invite.title %></p>
+			<span class="subtitle is-6">内容</span>
+			<p><%= @invite.content %></p>
+			<span class="subtitle is-6">猫情報</span>
+			<p><%= @invite.sex %> ／ <%= @invite.age %> ／ <%= @invite.type %></p>
+			<span class="subtitle is-6">募集開始日</span>
+			<p><%= @invite.created_at.strftime('%Y/%m/%d') %></p>
+			<!-- ログインしている会員の場合のみ編集と削除ボタンを表示 -->
+			<% if @invite.user == current_user %>
+			<hr>
+			<%= link_to "内容を変更する", edit_invite_path(@invite), class: "button is-success" %>
+			<%= link_to "この募集を削除する", invite_path(@invite), class: "button is-danger", method: :delete, data:{confirm: "本当に消しますか？"} %>
+			<% end %>
+		</div>
+	</div>
+	<div class="tile is-parent">
+		<div class="tile is-child">
+			<!-- 掲載者情報ここから -->
+			<h4 class="subtitle is-3">掲載者情報</h4>
+			<span class="subtitle is-6">ハンドルネーム</span>
+			<p><%= link_to @invite.user.handle_name, user_path(@invite.user.id) %></p>
+			<span class="subtitle is-6">自己紹介文</span>
+			<p><%= @invite.user.profile %></p>
+			<span class="subtitle is-6">住所</span>
+			<p><%= @invite.user.prefecture %></p>
+			<!-- 掲載者情報ここまで -->
+			<hr>
+			<!-- コメント欄ここから -->
+			<h4 class="subtitle is-3">コメント欄</h4>
+			<div id="comment_<%= @invite.id %>">
+				<%= render 'invites/comment', invite_comments: @invite.invite_comments %>
+			</div>
+			<!-- ログイン時はコメント入力フォーム表示 -->
+			<% if user_signed_in? %>
+			<div class="comment_form">
+				<%= form_with(model: [@invite, @invite_comment], remote: true) do |f| %>
+				<%= f.text_area :comment, class: "textarea",placeholder: "掲載者への質問はこちらへ" %>
+				<%= f.submit "コメントを送信する", class: "button is-info is-pulled-right" %>
+				<% end %>
+			</div>
+			<!-- 未ログイン時はメッセージを表示 -->
+			<% else %>
+			<div class="box">
+				<p>
+					コメントの投稿は会員のみが利用できます。<br>
+					新規会員登録は<%= link_to "こちら", "/users/sign_up" %>から。
+				</p>
+			</div>
+			<% end %>
+			<!-- コメント欄ここまで -->
+		</div>
+	</div>
+</div>
