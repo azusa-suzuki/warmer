@@ -24,4 +24,48 @@ class Post < ApplicationRecord
   # mount_uploader :image_id, ImageUploader
 
   has_many :notifications, dependent: :destroy
+
+  # いいね通知の処理
+  def create_notification_favorite!(current_user)
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and post_id = ? and action = ? ', current_user.id, user_id, id, 'favorite'])
+    # blank? = 一度もいいねされていない場合でいいねをされたら通知する
+    if temp.blank?
+      notification = current_user.active_notifications.new(
+        post_id: id,
+        visited_id: user_id,
+        action: 'favorite'
+      )
+      # 自分が自分の投稿にいいねをした時は通知済の扱いをする
+      if notification.visitor_id == notification.visited_id
+        notification.checked = true
+      end
+      notification.save if notification.valid?
+    end
+  end
+
+  # コメント通知の処理
+  def create_notification_comment!(current_user, post_comment_id)
+    # （ログイン中の会員と投稿者以外で）同じ投稿にコメントしているユーザーに通知を送る
+    temp_ids = PostComment.where(post_id: id).where.not('user_id=? or user_id=?', current_user.id, user_id).select(:user_id).distinct
+    # 取得したユーザーへの通知を作成
+    temp_ids.each do |temp_id|
+      save_notification_comment!(current_user, post_comment_id, temp_id['user_id'])
+    end
+    # 投稿者へ通知を作成
+    save_notification_comment!(current_user, post_comment_id, user_id)
+  end
+
+  def save_notification_comment!(current_user, post_comment_id, visited_id)
+    notification = current_user.active_notifications.new(
+      post_id: id,
+      post_comment_id: post_comment_id,
+      visited_id: visited_id,
+      action: 'post_comment'
+    )
+    # 自分が自分の投稿にコメントした時は通知済の扱いをする
+    if notification.visitor_id == notification.visited_id
+      notification.checked = true
+    end
+    notification.save if notification.valid?
+  end
 end

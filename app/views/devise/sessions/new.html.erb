@@ -1,33 +1,32 @@
-<span class="devise-header">　会員の方はこちらからログイン　</span>
+<h1 class="subtitle is-1">ログインページ</h1>
 
+<div class="box">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-   <br>
-  <div class="field row">
-    <label class="col-xs-2 col-xs-offset-1">メールアドレス</label>
-    <div class="col-xs-6"><%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %></div>
-  </div>
-  <br>
-  <div class="field row">
-    <label class="col-xs-2 col-xs-offset-1">パスワード</label>
-    <div class="col-xs-6"><%= f.password_field :password, autocomplete: "current-password", class: "form-control" %></div>
+  <div class="field">
+    <p class="control has-icons-left">
+      <%= f.email_field :email, autofocus: true, class: "input has-icons-left", placeholder: "メールアドレス", autocomplete: "email" %>
+      <span class="icon is-small is-left"> <i class="fas fa-envelope"></i> </span>
+    </p>
   </div>
 
-  <%= link_to "=>パスワードを忘れた方はこちら", new_password_path(resource_name), class: "col-xs-offset-7" %>
+  <div class="field">
+    <p class="control has-icons-left">
+      <%= f.password_field :password, class: "input has-icons-left", placeholder: "パスワード", autocomplete: "current-password" %>
+      <span class="icon is-small is-left"> <i class="fas fa-lock"></i> </span>
+    </p>
+  </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="field col-xs-offset-7">
+    <div class="field">
       <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.label "会員ログイン状態を保持する" %>
     </div>
   <% end %>
+
   <div class="actions">
-    <%= f.submit "ログイン", class: "btn btn-primary col-xs-offset-3" %>
+    <%= f.submit "ログイン", class: "button is-success" %>
   </div>
 <% end %>
-
-  <br>
-<span class="devise-header">　登録がお済みでない方　</span>
-<div class= "row">
-  <br>
-  <div class="col-xs-offset-2"><%= link_to "こちら", new_registration_path(resource_name) %>から新規登録を行ってください。</div>
 </div>
+
+会員でない方は<%= link_to "こちら", "/users/sign_up" %>から新規登録を行なってください。
