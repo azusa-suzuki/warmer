@@ -14,3 +14,7 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+$(function(){
+	setTimeout("$('.flash_messages').fadeOut('slow')", 2000)
+});

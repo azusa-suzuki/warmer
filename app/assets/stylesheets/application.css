@@ -13,33 +13,24 @@
  *= require_tree .
  *= require_self
  */
-@import "bootstrap-sprockets";
-@import "bootstrap";
 
-.body{
-  margin-top:100px;
+.nav-link {
+	color: white;
+	margin-left: 10px;
 }
 
-// devise用
-.devise-header{
-  background-color:#eeeeee;
-  font-size:25px;
+h3 {
+	margin-top: 20px;
 }
 
-.form-contens{
-  margin:20px 0;
+.box {
+	margin: 0 5px;
 }
 
-.devise-form{
-  text-align: center;
+.card {
+	margin: 0 5px;
 }
 
-.field{
-  margin-bottom:10px;
-}
-
-
-a {
-    text-decoration: none;
-    color: #696969;
+.textarea {
+	margin-bottom: 5px;
 }
