@@ -5,18 +5,6 @@
 		<!-- 画像表示 -->
 		<div class="tile is-child box">
 			<%= attachment_image_tag @invite, :image, :fill, 700, 450, fallback: "no_image.jpg" %>
-			<hr>
-			<!-- 動画が登録されてなければ文章を表示 -->
-			<% if @invite.video.blank? %>
- 				<p>動画はありません</p>
- 			<!-- 動画が登録されていたら再生画面を表示 -->
-			<% else %>
-				<video controls name="media">
-				  <source src=<%= @invite.video_url %> >
-				</video>
-				<%#= video_tag @invite.video_url, controls: true, autobuffer: true %>
-			<% end %>
-			<hr>
 			<!-- ログイン時のみ気になるボタン表示 -->
 			<% if user_signed_in? %>
 			<div id="invite-<%= @invite.id %>">

@@ -19,8 +19,8 @@ class Invite < ApplicationRecord
   has_many :invite_comments, dependent: :destroy
   has_many :marks, dependent: :destroy
 
-  def marked_by?(user)
-    marks.where(user_id: user.id).exists?
+  def marked_by?(user, invite)
+    marks.where(user_id: user.id, invite_id: invite.id).size > 0
   end
   # mount_uploader :video, VideoUploader
   # mount_uploader :image_id, ImageUploader
