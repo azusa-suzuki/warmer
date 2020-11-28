@@ -1,0 +1,77 @@
+<h1 class="title is-1 has-text-primary">新規投稿ページ</h1>
+
+<!-- エラーあれば件数を表示 -->
+<% if @post.errors.any? %>
+<div id="error_explanation">
+  <h2><%= @post.errors.count %>件のエラーが発生しました。</h2>
+  <ul>
+    <% @post.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="box">
+  <%= form_for(@post, url: posts_path) do |f| %>
+
+  <div class="field">
+    <%= attachment_image_tag @post, :image, :fill, fallback: "no_image.jpg", size:'300x200' %>
+    <%= f.attachment_field :image %>
+  </div>
+
+  <div class="field">
+    <p class="control">
+      <%= f.label "投稿タイトル" %>
+      <%= f.text_field :title, autofocus: true, class: "input", placeholder: "（例：ボールが大好き！）", autocomplete: "title" %>
+    </p>
+  </div>
+
+  <div class="field">
+    <p class="control">
+      <%= f.label "投稿内容" %>
+      <%= f.text_area :content, autofocus: true, class: "input", placeholder: "（例：ボールを追いかけるウチのミイちゃんです。）", autocomplete: "content" %>
+    </p>
+  </div>
+
+  <div class="field">
+   <%= f.label "性別" %>
+   <p class="control">
+     <%= f.radio_button :sex, :未選択 %>
+     <%= f.label :sex, "未選択", {value: :未選択} %>
+     <%= f.radio_button :sex, :オス %>
+     <%= f.label :sex, "オス", {value: :オス} %>
+     <%= f.radio_button :sex, :メス %>
+     <%= f.label :sex, "メス", {value: :メス} %>
+   </p>
+ </div>
+
+ <div class="field">
+   <%= f.label "年齢" %>
+   <p class="control">
+     <%= f.radio_button :age, :未選択 %>
+     <%= f.label :age, "未選択", {value: :未選択} %>
+     <%= f.radio_button :age, :子猫 %>
+     <%= f.label :age, "子猫", {value: :子猫} %>
+     <%= f.radio_button :age, :成猫 %>
+     <%= f.label :age, "成猫", {value: :成猫} %>
+     <%= f.radio_button :age, :老猫 %>
+     <%= f.label :age, "老猫", {value: :老猫} %>
+   </p>
+ </div>
+
+ <div class="field">
+   <%= f.label "種類" %>
+   <p class="control">
+     <div class="select">
+       <%= f.select :type, Post.types.keys, {} %>
+     </div>
+   </p>
+ </div>
+
+ <div class="actions">
+  <%= f.submit "投稿する" , class: "button is-success" %>
+</div>
+
+<% end %>
+</div>

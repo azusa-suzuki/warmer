@@ -1,0 +1,52 @@
+<h1 class="title is-1 has-text-primary">会員情報変更ページ</h1>
+
+<div class="box">
+<%= form_for(@user) do |f| %>
+  <p class="has-text-success">公開される情報です。</p>
+
+  <div class="field">
+    <p class="control">
+      <%= f.label "ハンドルネーム" %>
+      <%= f.text_field :handle_name, autofocus: true, class: "input", placeholder: "（例：ねこ子）", autocomplete: "handle_name" %>
+    </p>
+  </div>
+
+  <div class="field">
+    <p class="control">
+      <%= f.label "自己紹介文" %>
+      <%= f.text_field :profile, autofocus: true, class: "input", placeholder: "（例：2匹の猫と暮らす学生です。）", autocomplete: "profile" %>
+    </p>
+  </div>
+
+  <div class="field">
+    <p class="control">
+      <%= f.label "住所（都道府県を選択してください）" %>
+      <div class="select">
+      <%= f.select :prefecture, User.prefectures.keys, {} %>
+      </div>
+    </p>
+  </div>
+
+  <hr>
+
+  <p class="has-text-success">以下の情報は他の会員には公開されません。</p>
+
+  <div class="field">
+    <p class="control">
+      <%= f.label "氏名" %>
+      <%= f.text_field :name, autofocus: true, class: "input", placeholder: "（例：猫田 里子）", autocomplete: "name" %>
+    </p>
+  </div>
+
+  <div class="field">
+    <p class="control">
+      <%= f.label "メールアドレス" %>
+      <%= f.email_field :email, autofocus: true, class: "input", placeholder: "（例：neko@test.co.jp）", autocomplete: "email" %>
+    </p>
+  </div>
+
+  <div class="actions">
+ 	<%= f.submit "変更内容を保存する", class: "button is-success" %>
+  </div>
+<% end %>
+</div>

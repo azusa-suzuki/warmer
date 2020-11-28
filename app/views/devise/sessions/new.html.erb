@@ -1,26 +1,32 @@
-<h2>Log in</h2>
+<h1 class="subtitle is-1">ログインページ</h1>
 
+<div class="box">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <p class="control has-icons-left">
+      <%= f.email_field :email, autofocus: true, class: "input has-icons-left", placeholder: "メールアドレス", autocomplete: "email" %>
+      <span class="icon is-small is-left"> <i class="fas fa-envelope"></i> </span>
+    </p>
   </div>
 
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <p class="control has-icons-left">
+      <%= f.password_field :password, class: "input has-icons-left", placeholder: "パスワード", autocomplete: "current-password" %>
+      <span class="icon is-small is-left"> <i class="fas fa-lock"></i> </span>
+    </p>
   </div>
 
   <% if devise_mapping.rememberable? %>
     <div class="field">
       <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.label "会員ログイン状態を保持する" %>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit "ログイン", class: "button is-success" %>
   </div>
 <% end %>
+</div>
 
-<%= render "devise/shared/links" %>
+会員でない方は<%= link_to "こちら", "/users/sign_up" %>から新規登録を行なってください。

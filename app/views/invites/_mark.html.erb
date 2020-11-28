@@ -1,0 +1,13 @@
+<div class="box is-pulled-right">
+	<% if invite.marked_by?(current_user, invite) %>
+	<%= link_to invite_marks_path(invite), method: :delete, remote: true do %>
+	<i class="fas fa-star" aria-hidden="true" style="color: orange;"></i>
+	<%= invite.marks.count %> 気になる
+	<% end %>
+	<% else %>
+	<%= link_to invite_marks_path(invite), method: :post, remote: true do %>
+	<i class="far fa-star" aria-hidden="true" style="color: orange;"></i>
+	<%= invite.marks.count %> 気になる
+	<% end %>
+	<% end %>
+</div>

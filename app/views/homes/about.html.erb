@@ -1,0 +1,18 @@
+<div class="columns">
+	<div class="column is-half">
+ 		<%= image_tag 'img_about.jpg', class: "about-image" %>
+	</div>
+
+	<div class="column is-half">
+		<h3 class="subtitle is-4 about-title">このサイトについて</h3>
+		<p>「warmer」は猫を保護した人と猫の里親になりたい人を繋ぐためのサイトです。</p>
+		<p>また、自分の家の可愛い猫の写真を投稿することができる<br>コミュニティサイトでもあります。</p>
+		<hr>
+		<h3 class="subtitle is-4 about-title">どうやって使うの？</h3>
+		<p>投稿された情報の閲覧は誰でも可能ですが、</p>
+		<p>募集をかけたり写真を投稿するには<%= link_to "会員登録", "/users/sign_up" %>が必要になります。</p>
+		<p><%= link_to "ログイン", "/users/sign_in" %>後のマイページから投稿ができます。</p>
+		<br>
+		<p class="subtitle is-3 about-message">◯ あなたと猫に幸せが招かれますように ◯</p>
+	</div>
+</div>

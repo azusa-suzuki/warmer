@@ -13,3 +13,24 @@
  *= require_tree .
  *= require_self
  */
+
+.nav-link {
+	color: white;
+	margin-left: 10px;
+}
+
+h3 {
+	margin-top: 20px;
+}
+
+.box {
+	margin: 0 5px;
+}
+
+.card {
+	margin: 0 5px;
+}
+
+.textarea {
+	margin-bottom: 5px;
+}
