@@ -33,6 +33,11 @@ class PostsController < ApplicationController
   def update
     post = Post.find(params[:id])
     post.update(post_params)
+    post.tags.delete_all
+    tags = Vision.get_image_data(post.image)
+    tags.each do |tag|
+      post.tags.create(name: tag)
+    end
     redirect_to post_path(post), flash: { success: '変更が完了しました。' }
   end
 

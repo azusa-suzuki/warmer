@@ -33,6 +33,11 @@ class InvitesController < ApplicationController
   def update
     invite = Invite.find(params[:id])
     invite.update(invite_params)
+    invite.tags.delete_all
+    tags = Vision.get_image_data(invite.image)
+    tags.each do |tag|
+      invite.tags.create(name: tag)
+    end
     redirect_to invite_path(invite), flash: { success: '変更が完了しました。' }
   end
 
