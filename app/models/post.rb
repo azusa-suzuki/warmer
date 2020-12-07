@@ -15,6 +15,7 @@ class Post < ApplicationRecord
   self.inheritance_column = :_type_disabled
 
   belongs_to :user
+  has_many :tags, dependent: :destroy
   attachment :image
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy

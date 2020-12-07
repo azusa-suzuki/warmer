@@ -19,6 +19,10 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     @post.save
+    tags = Vision.get_image_data(@post.image)
+    tags.each do |tag|
+      @post.tags.create(name: tag)
+    end
     redirect_to user_path(current_user.id), flash: { success: '投稿が完了しました。' }
   end
 

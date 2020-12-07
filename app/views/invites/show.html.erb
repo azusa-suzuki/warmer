@@ -5,6 +5,11 @@
 		<!-- 画像表示 -->
 		<div class="tile is-child box">
 			<%= attachment_image_tag @invite, :image, :fill, 700, 450, fallback: "no_image.jpg" %>
+			<div class="tag-box">
+				<% @invite.tags.each do |tag| %>
+  				<span class="label"><%= tag.name %></span>
+				<% end %>
+			</div>
 			<!-- ログイン時のみ気になるボタン表示 -->
 			<% if user_signed_in? %>
 			<div id="invite-<%= @invite.id %>">

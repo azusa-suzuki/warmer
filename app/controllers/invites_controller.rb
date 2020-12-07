@@ -19,6 +19,10 @@ class InvitesController < ApplicationController
     @invite = Invite.new(invite_params)
     @invite.user_id = current_user.id
     @invite.save
+    tags = Vision.get_image_data(@invite.image)
+    tags.each do |tag|
+      @invite.tags.create(name: tag)
+    end
     redirect_to user_path(current_user.id), flash: { success: '投稿が完了しました。' }
   end
 

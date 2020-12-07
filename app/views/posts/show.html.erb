@@ -5,6 +5,11 @@
 		<!-- 画像表示 -->
 		<div class="tile is-child box">
 			<%= attachment_image_tag @post, :image, :fill, 700, 450, fallback: "no_image.jpg" %>
+			<div class="tag-box">
+				<% @post.tags.each do |tag| %>
+				  <span class="label"><%= tag.name %></span>
+				<% end %>
+			</div>
 			<hr>
 			<!-- ログイン時のみいいねボタン表示 -->
 			<% if user_signed_in? %>
